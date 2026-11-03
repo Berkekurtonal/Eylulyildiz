@@ -1,0 +1,20 @@
+# Rules for the host (Hostinger: LiteSpeed, Apache-compatible). Published with the site.
+
+# Modules only run when served as JavaScript; images and fonts get their own types.
+<IfModule mod_mime.c>
+  AddType text/javascript .js .mjs
+  AddType image/webp .webp
+  AddType image/svg+xml .svg
+  AddType font/woff2 .woff2
+</IfModule>
+
+# File names carry no content hash, so pages and code are revalidated on every visit
+# (a small 304 when unchanged). An update then never runs beside a stale copy.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|css|js|json|txt)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  <FilesMatch "\.(png|jpe?g|webp|svg|woff2)$">
+    Header set Cache-Control "public, max-age=86400"
+  </FilesMatch>
+</IfModule>
