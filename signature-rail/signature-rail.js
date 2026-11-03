@@ -1,7 +1,7 @@
 import '../shared/i18n.js';
 import { zoneBounds } from '../shared/scroll-zones.js';
 import { smoothNavigationTo } from '../shared/navigation-scroll.js';
-import { PANEL_WINDOWS } from '../paper-journey/content-motion.mjs';
+import { PANEL_WINDOWS } from '../paper-journey/content-motion.js';
 
 // Read the existing chapter timing; never write to the journey or its clock.
 const rail = document.querySelector('.signature-rail');

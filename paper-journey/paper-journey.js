@@ -1,9 +1,9 @@
-import { advanceProgress } from './motion.mjs';
+import { advanceProgress } from './motion.js';
 import { endingAt, technicalAt, topDownCamera } from './lib/ending.js';
 import { assemblyAt, assemblyOrigin, presentationCamera, planOverhead, ARCHITECTURAL_Y, ASSEMBLY } from './lib/assembly.js';
 import { LEVELS } from './lib/arche-levels.js';
 import { interiorVisibility } from './lib/arche-presentation.js';
-import { contentAt, PANEL_WINDOWS } from './content-motion.mjs';
+import { contentAt, PANEL_WINDOWS } from './content-motion.js';
 import * as THREE from './vendor/three.module.js';
 import { clamp, mix, smooth, ease, setAnisotropy, buildEnvironment, reduction } from './lib/core.js';
 import { buildStudio } from './lib/studio.js';
