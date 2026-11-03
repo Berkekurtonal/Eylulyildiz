@@ -540,10 +540,25 @@ function start() {
 
   /* ---- sizing: the pane, not the window ----------------------------- */
   const basePixelRatio = () => Math.min(devicePixelRatio || 1, innerWidth < 900 ? 1.8 : 2);
-  let dprScale = 1;
+  let dprScale = 1, appliedSize = '', sizeDirty = false, looping = true;
+
+  // Setting a canvas's size clears it, even to the same size. The ResizeObserver
+  // runs after the frame has been drawn, so resizing there put a blank canvas on
+  // screen: on phones the address bar changes the 100dvh pin on every scroll frame
+  // and the scene flickered black. A change is noted here and applied at the start
+  // of the next frame, just before it draws; until then the last image stretches.
+  function requestResize() {
+    sizeDirty = true;
+    // A stopped loop (the embedded preview) has no next frame: apply and redraw now.
+    if (!looping && resize()) pipeline.render(scene, camera, time);
+  }
 
   function resize() {
     const w = Math.max(2, viewport.clientWidth), h = Math.max(2, viewport.clientHeight);
+    const dpr = basePixelRatio() * dprScale;
+    const size = w + 'x' + h + '@' + dpr;
+    if (size === appliedSize) return false;
+    appliedSize = size;
     const aspect = w / h;
     camera.aspect = aspect;
     camera.fov = clamp(40 * (aspect < .88 ? .88 / aspect : 1), 34, 58);
@@ -551,15 +566,15 @@ function start() {
     for(const label of Object.values(proj.room.userData.levelLabels))label.traverse(o=>{
       if(o.isSprite){o.center.x=aspect<.65?0:1;}
     });
-    const dpr = basePixelRatio() * dprScale;
     renderer.setPixelRatio(dpr);
     renderer.setSize(w, h, false);
     renderer.domElement.style.width = '100%';
     renderer.domElement.style.height = '100%';
     pipeline.setSize(w, h, dpr);
+    return true;
   }
-  new ResizeObserver(resize).observe(viewport);
-  addEventListener('resize', resize);
+  new ResizeObserver(requestResize).observe(viewport);
+  addEventListener('resize', requestResize);
   resize();
 
   /* ---- frame -------------------------------------------------------- */
@@ -589,6 +604,24 @@ function start() {
     projectMix = mix(projectMix, project, 1 - Math.exp(-dt * 4.2));
     paintCopy();
     if (onScreen) {
+      // adaptive resolution, phones only: trade device pixels, never
+      // multisampling or shadows. Desktop panes keep full resolution, so the
+      // image never softens after load; a slow desktop GPU loses frames, not
+      // detail. Start-up is not measured, and a scale that proved too slow is
+      // not retried, so sharpness never pumps. Decided before drawing, so a
+      // new scale is drawn in this frame instead of showing a cleared canvas.
+      frameEMA = frameEMA * .94 + dt * 1000 * .06;
+      if (innerWidth < 900 && time > 2 && ++tick > 90) {
+        tick = 0;
+        const before = dprScale;
+        if (frameEMA > 26 && dprScale > .8) {
+          scaleCap = dprScale - .05;
+          dprScale = Math.max(.8, dprScale - .1);
+        } else if (frameEMA < 18.5 && dprScale < scaleCap) dprScale = Math.min(scaleCap, dprScale + .05);
+        if (before !== dprScale) sizeDirty = true;
+      }
+      if (sizeDirty) { sizeDirty = false; resize(); }
+
       const T = clamp(progress, 0, 6) / 6;
       choreograph(T, time);
       const key = T.toFixed(6) + ':' + endingProgress.toFixed(6) + ':' + architect.userData.painting.visible;
@@ -598,25 +631,10 @@ function start() {
         shadowAge = 0;
       }
       pipeline.render(scene, camera, time);
-
-      // adaptive resolution, phones only: trade device pixels, never
-      // multisampling or shadows. Desktop panes keep full resolution, so the
-      // image never softens after load; a slow desktop GPU loses frames, not
-      // detail. Start-up is not measured, and a scale that proved too slow is
-      // not retried, so sharpness never pumps.
-      frameEMA = frameEMA * .94 + dt * 1000 * .06;
-      if (innerWidth < 900 && time > 2 && ++tick > 90) {
-        tick = 0;
-        const before = dprScale;
-        if (frameEMA > 26 && dprScale > .8) {
-          scaleCap = dprScale - .05;
-          dprScale = Math.max(.8, dprScale - .1);
-        } else if (frameEMA < 18.5 && dprScale < scaleCap) dprScale = Math.min(scaleCap, dprScale + .05);
-        if (before !== dprScale) resize();
-      }
     }
 
     if (!embedded || ++warm < 240) requestAnimationFrame(frame);
+    else looping = false;
   }
   requestAnimationFrame(frame);
 
