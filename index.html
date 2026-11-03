@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#171815">
+<title>Eylül Yıldız — Interior architecture</title>
+<meta name="description" content="Eylül Yıldız, interior architect based in Ankara. Seven projects, from the first line on a sheet of paper to the space it becomes.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Eylül Yıldız">
+<meta property="og:title" content="Eylül Yıldız — Interior architecture">
+<meta property="og:description" content="Eylül Yıldız, interior architect based in Ankara. Seven projects, from the first line on a sheet of paper to the space it becomes.">
+<meta name="twitter:card" content="summary">
+<script>
+  // Before first paint: scripting is on, and whether this is a storyboard frame.
+  document.documentElement.classList.add('js');
+  try { document.documentElement.lang = localStorage.getItem('eylul-language') === 'en' ? 'en' : 'tr'; } catch {}
+  if (new URLSearchParams(location.search).has('state')) document.documentElement.classList.add('is-embedded');
+</script>
+<link rel="preload" href="shared/fonts/NeuethingSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="shared/tokens.css">
+<link rel="stylesheet" href="shared/immersive.css">
+<style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+<link rel="stylesheet" href="shared/page-transition.css">
+<link rel="stylesheet" href="paper-journey/paper-journey.css">
+<link rel="stylesheet" href="project-sheets/project-sheets.css">
+<link rel="stylesheet" href="editorial-site/editorial-site.css">
+<link rel="stylesheet" href="signature-rail/signature-rail.css">
+</head>
+<body>
+
+<a class="skip" href="#rail-copy">Skip to the written journey</a>
+<a class="skip" href="#studio">Skip to the studio</a>
+
+<!-- Global Signature Rail: independent of both pinned sequences. -->
+<header class="signature-rail" data-open="false" aria-label="Signature Rail">
+  <nav class="signature-rail__nav" aria-label="Global navigation">
+    <button class="signature-rail__name" type="button" aria-expanded="false" aria-controls="signature-left signature-right" aria-label="eylül yıldız — toggle navigation">eylül yıldız</button>
+    <button class="signature-rail__toggle" type="button" aria-expanded="false" aria-controls="signature-left signature-right" aria-label="Menu"></button>
+    <div class="signature-rail__wing signature-rail__wing--left" id="signature-left" inert>
+      <a href="#rail-copy" data-destination="journey">JOURNEY</a>
+      <a href="#projects" data-destination="projects">PROJECTS</a>
+    </div>
+    <div class="signature-rail__wing signature-rail__wing--right" id="signature-right" inert>
+      <a href="#studio" data-destination="studio">STUDIO</a>
+      <a href="#inquiry" data-destination="contact">CONTACT</a>
+      <div class="signature-rail__languages" id="signature-languages" role="group" aria-label="Language" inert>
+        <button type="button" data-language="tr" lang="tr" aria-label="Choose Turkish" aria-pressed="true">TR</button>
+        <span aria-hidden="true">/</span>
+        <button type="button" data-language="en" lang="en" aria-label="Choose English" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- SHARED: drawing symbols, placed with <use> by the EditorialSite -->
+<svg class="drawing-symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="plan-hatch" width=".16" height=".16" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2=".16" stroke="currentColor" stroke-width=".035" opacity=".55"/></pattern>
+  </defs>
+  <symbol id="plan-still-house" viewBox="-7 -6.2 14 12.4">
+    <rect x="-2.6" y="-3.35" width="6.9" height="4.6" fill="none" stroke="currentColor" stroke-width=".02" stroke-dasharray=".12 .12" opacity=".45"/>
+    <g fill="none" stroke="currentColor" stroke-width=".025">
+      <rect data-footprint="seating" x="-1.15" y="-2.95" width="4" height="1.55"/>
+      <rect data-footprint="return" x="-1.15" y="-1.45" width="1.45" height="1.35"/>
+      <rect data-footprint="table" x="-0.35" y="-0.75" width="1.9" height="1"/>
+      <rect data-footprint="chair" x="3.05" y="-0.35" width="1.15" height="1.2"/>
+      <rect data-footprint="joinery" x="-5.85" y="-1.75" width="0.85" height="3.3"/>
+      <rect data-footprint="dining" x="-5.6" y="1.9" width="2.4" height="1.9"/>
+    </g>
+    <path d="M-2.4 4.5 V3.45 A1.05 1.05 0 0 1 -1.35 4.5" fill="none" stroke="currentColor" stroke-width=".022"/>
+    <g stroke="currentColor" stroke-width=".035">
+      <rect data-wall="0" x="-6" y="-4.61" width="12" height="0.22" fill="url(#plan-hatch)"/>
+      <rect data-wall="1" x="-6.11" y="-4.5" width="0.22" height="9" fill="url(#plan-hatch)"/>
+      <rect data-wall="2" x="5.89" y="-4.5" width="0.22" height="2.9" fill="url(#plan-hatch)"/>
+      <rect data-wall="3" x="5.89" y="2.4" width="0.22" height="2.1" fill="url(#plan-hatch)"/>
+      <rect data-wall="4" x="-6" y="4.39" width="3.6" height="0.22" fill="url(#plan-hatch)"/>
+      <rect data-wall="5" x="3.4" y="4.39" width="2.6" height="0.22" fill="url(#plan-hatch)"/>
+      <rect data-wall="6" x="-6" y="0.46" width="3.3" height="0.18" fill="currentColor"/>
+      <rect data-wall="7" x="-2.84" y="0.55" width="0.18" height="2.2" fill="currentColor"/>
+      <rect data-wall="8" x="4" y="-1.49" width="1.9" height="0.18" fill="currentColor"/>
+    </g>
+    <g fill="none" stroke="currentColor" stroke-width=".02" opacity=".7">
+      <path d="M-6 5.35 L6 5.35"/>
+      <path d="M-6 5.2 v.3 M6 5.2 v.3"/>
+      <path d="M6.35 -4.5 L6.35 4.5"/>
+      <path d="M6.2 -4.5 h.3 M6.2 4.5 h.3"/>
+      <path d="M-6 -5.35 L-2.7 -5.35"/>
+      <path d="M-6 -5.5 v.3 M-2.7 -5.5 v.3"/>
+    </g>
+    <g fill="currentColor" font-family="Georgia, serif" font-size=".34" letter-spacing=".04" text-anchor="middle">
+      <text x="0" y="5.21">12 000</text>
+      <text x="6.49" y="0" transform="rotate(90 6.49 0)">9 000</text>
+      <text x="-4.35" y="-5.49">3 300</text>
+      <text x=".4" y="-2.1" font-size=".3" letter-spacing=".08">LIVING</text>
+      <text x="-4.4" y=".95" font-size=".3" letter-spacing=".08">DINING</text>
+      <text x=".45" y="3.75" font-size=".3" letter-spacing=".08">ENTRY</text>
+      <text x="5.55" y="-5.05" font-size=".28">N</text>
+    </g>
+    <path d="M5.55 -4.95 V-4.1 M5.35 -4.75 L5.55 -4.95 L5.75 -4.75" fill="none" stroke="currentColor" stroke-width=".022"/>
+  </symbol>
+  <symbol id="plan-courtyard-atelier" viewBox="-8 -6.2 16 12.4">
+    <g stroke="currentColor" stroke-width=".035">
+      <path fill="url(#plan-hatch)" fill-rule="evenodd" d="M-7 -5 H7 V5 H1.2 V4.72 H6.72 V-4.72 H-6.72 V4.72 H-1.2 V5 H-7 Z"/>
+      <rect x="-2.7" y="-2.1" width="5.4" height="4.2" fill="none" stroke-dasharray=".16 .12"/>
+    </g>
+    <g fill="none" stroke="currentColor" stroke-width=".025">
+      <path d="M-2.7 -2.1 H2.7 V2.1 H-2.7 Z" stroke-width=".05" opacity=".35"/>
+      <circle cx="-1.2" cy="-.7" r=".75"/><circle cx="1.1" cy=".6" r=".95"/><circle cx="-.9" cy="1.2" r=".35"/>
+      <rect x="-6.2" y="-4.2" width="2.6" height="1.1"/><rect x="-6.2" y="-2.6" width="2.6" height="1.1"/><rect x="-6.2" y="-1" width="2.6" height="1.1"/>
+      <rect x="3.6" y="-4.2" width="2.6" height="1.1"/><rect x="3.6" y="-2.6" width="2.6" height="1.1"/><rect x="3.6" y="-1" width="2.6" height="1.1"/>
+      <rect x="-2.2" y="-4.25" width="4.4" height=".9"/>
+      <circle cx="4.9" cy="3.3" r=".9"/>
+    </g>
+    <g stroke="currentColor" stroke-width=".03" fill="currentColor">
+      <rect x="-6.72" y="1.9" width="3.4" height=".16"/><rect x="-3.4" y="1.9" width=".16" height="2.82"/>
+      <rect x="3.32" y="2.1" width="3.4" height=".16"/>
+    </g>
+    <g fill="currentColor" font-family="Georgia, serif" font-size=".3" letter-spacing=".08" text-anchor="middle">
+      <text x="0" y=".1">COURT</text><text x="-5" y="3.5">MEETING</text><text x="0" y="-4.55">LIBRARY</text>
+    </g>
+  </symbol>
+  <symbol id="plan-soft-geometry" viewBox="-7 -6.2 14 12.4">
+    <g stroke="currentColor" stroke-width=".035">
+      <path fill="url(#plan-hatch)" fill-rule="evenodd" d="M-6 -4.5 H6 V4.5 H-6 Z M-5.78 -4.28 V4.28 H5.78 V-4.28 Z"/>
+    </g>
+    <g fill="none" stroke="currentColor" stroke-width=".045">
+      <path d="M-1.6 4.28 V1.6 A1.6 1.6 0 0 1 1.6 1.6 V4.28"/>
+      <path d="M-5.78 -.4 H-2.9 A1.1 1.1 0 0 1 -1.8 .7 V1.1"/>
+      <path d="M5.78 -.4 H2.9 A1.1 1.1 0 0 0 1.8 .7 V1.1"/>
+    </g>
+    <g fill="none" stroke="currentColor" stroke-width=".025">
+      <path d="M-4.6 -3.6 A3.2 3.2 0 0 0 -.6 -1.4" /><path d="M-4.1 -3.6 A2.7 2.7 0 0 0 -.9 -1.9"/>
+      <circle cx="2.6" cy="-2.4" r="1.05"/>
+      <circle cx="2.6" cy="-3.75" r=".22"/><circle cx="3.95" cy="-2.4" r=".22"/><circle cx="2.6" cy="-1.05" r=".22"/><circle cx="1.25" cy="-2.4" r=".22"/>
+      <rect x="-5.3" y="1.2" width="2.2" height="2.4" rx=".5"/><rect x="3.1" y="1.2" width="2.2" height="2.4" rx=".5"/>
+      <circle cx="0" cy="2.7" r=".5" stroke-dasharray=".08 .08"/>
+    </g>
+    <g fill="currentColor" font-family="Georgia, serif" font-size=".3" letter-spacing=".08" text-anchor="middle">
+      <text x="0" y="3.1">HALL</text><text x="-2.6" y="-.9">LIVING</text><text x="2.6" y="-.1">KITCHEN</text>
+    </g>
+  </symbol>
+</svg>
+
+<!-- ═════════════════════════════════════════════════════════════════
+     IMMERSIVE — one sticky pin, two scroll zones (shared/immersive.css)
+     ═════════════════════════════════════════════════════════════════ -->
+<section class="immersive" id="immersive" aria-label="The studio, from drawing to space">
+  <div class="immersive__zone" data-zone="paper-journey"></div>
+  <div class="immersive__zone" id="arche-ending" data-zone="arche-ending"></div>
+  <div class="immersive__zone" data-zone="project-sheets"><span id="projects" class="project-stack-anchor"></span><span id="all-projects" class="ps-index-anchor"></span></div>
+
+  <div class="immersive__pin">
+
+    <!-- ═════════════════════════════════════════════════════════════
+         PART 1 — PaperJourney  ·  LOCKED
+         paper-journey/paper-journey.js · paper-journey.css · lib/
+         ═════════════════════════════════════════════════════════════ -->
+    <div class="paper-journey" id="paper-journey">
+
+      <!-- Minimal navigation sits above the continuous scene. -->
+        <header class="rail-top">
+          <a class="brand" href="#" data-go="0">eylül yıldız<span>Interior architecture</span></a>
+          <nav class="rail-nav" aria-label="Sections">
+            <button data-go="0">Atelier</button>
+            <button data-go="4">Work</button>
+            <button data-go="5">Approach</button>
+            <button data-go="6" class="is-accent">Contact</button>
+          </nav>
+        </header>
+
+      <!-- Temporary editorial surface; scroll progress controls entry/exit. -->
+      <section class="rail" aria-label="Chapter introduction" aria-hidden="true" inert>
+        <div class="rail-body" id="rail-copy" tabindex="-1">
+          <p class="chapter-mark">
+            <span id="chapter-index">01</span><i></i><span id="chapter-name">The architect</span>
+          </p>
+          <div class="chapter-stack" id="chapter-stack"></div>
+
+          <div class="project" id="project" hidden>
+            <p class="project-code"><span id="project-code">01</span> — Selected work</p>
+            <h2 id="project-name">ARCHÉ</h2>
+            <p class="project-meta"><span id="project-type"></span><br><span id="project-place"></span></p>
+            <button id="project-next" class="link">Next project <span aria-hidden="true">→</span></button>
+          </div>
+
+          <a class="cta" id="contact" href="mailto:merhaba@eylulyildiz.archi" hidden>
+            <span>Start a conversation</span>
+            <em id="contact-address">merhaba@eylulyildiz.archi</em>
+          </a>
+        </div>
+      </section>
+
+        <footer class="rail-foot">
+          <button class="cue" id="cue">
+            <span class="cue-dot" aria-hidden="true"></span>
+            <span id="cue-label">Scroll to enter the atelier</span>
+          </button>
+          <div class="progress">
+            <div class="ticks" id="ticks" role="group" aria-label="Chapters"></div>
+            <div class="bar"><i id="bar-fill"></i></div>
+            <p class="counter"><b id="counter">01</b><span>/ 07</span></p>
+          </div>
+        </footer>
+
+      <!-- The world always fills the complete viewport behind the text. -->
+      <section class="viewport" id="viewport" aria-hidden="true" data-handoff-origin>
+        <div class="viewport-frame"></div>
+        <p class="viewport-note"><span id="scene-state">The atelier</span></p>
+        <div class="edge"></div>
+      </section>
+
+    </div>
+
+    <div id="fallback" hidden>
+      <p><strong>This browser cannot draw the spatial study.</strong> Scroll through the chapter introductions, or browse <a href="#work">all projects</a>.</p>
+    </div>
+
+    <noscript>
+      <div class="no-js">
+        <h2>A space, becoming</h2>
+        <p><strong>01 Eylül Yıldız.</strong> Interior architecture. Every project starts as a drawing made by hand.</p>
+        <p><strong>02 The drawing.</strong> Every space begins with a line.</p>
+        <p><strong>03 From line to space.</strong> The drawing on her desk stands up: every wall rises exactly where it was drawn.</p>
+        <p><strong>04 Space is experienced.</strong> Lime plaster, smoked oak, honed limestone. Surfaces chosen for how they age.</p>
+        <p><strong>05 Selected work.</strong> ARCHÉ.</p>
+        <p><strong>06 Design philosophy.</strong> Strip the colour and the styling and a good room is still a good room.</p>
+        <p><strong>07 Contact.</strong> <a href="mailto:merhaba@eylulyildiz.archi">merhaba@eylulyildiz.archi</a></p>
+        <p><a href="#work">All projects</a></p>
+      </div>
+    </noscript>
+    <!-- ═══════════════ /PART 1 — PaperJourney ═══════════════ -->
+
+    <!-- PART 2 — ProjectSheets: the ARCHÉ closing frame becomes sheet 01. -->
+    <section class="project-sheets" id="project-sheets" aria-label="Selected projects">
+      <div class="ps-veil" aria-hidden="true"></div>
+      <ol class="ps-stack" data-project-sheets aria-label="Project sheets"></ol>
+    </section>
+    <!-- /PART 2 — ProjectSheets -->
+
+  </div>
+</section>
+
+
+<!-- ═════════════════════════════════════════════════════════════════
+     PART 3 — EditorialSite
+     editorial-site/editorial-site.js · editorial-site.css
+     Normal document flow after the pin releases.
+     ═════════════════════════════════════════════════════════════════ -->
+<div class="editorial-site" id="editorial-site">
+
+  <header class="es-header" data-tone="light">
+    <div class="es-header__inner">
+      <a class="es-brand" href="#studio">eylül yıldız<span>Interior architecture</span></a>
+      <nav class="es-nav" aria-label="Studio">
+        <a href="#studio">Studio</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#services">Skills</a>
+        <a href="#process">Education</a>
+        <a href="#inquiry" class="es-nav__cta">Get in touch</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+<!-- ──────────────── About ──────────────── -->
+    <section class="es-section es-studio" id="studio" aria-labelledby="studio-title">
+      <div class="es-wrap">
+        <p class="es-label es-reveal">About</p>
+        <h2 class="es-statement es-reveal" id="studio-title" style="--delay:.06s">Spaces shaped by people.<br>Ideas grounded in <em>detail.</em></h2>
+
+        <div class="es-grid es-studio__grid">
+          <figure class="es-studio__figure es-reveal">
+            <div class="es-crop" style="--ratio:4/5; --fx:64%; --fy:50%">
+              <img src="project-pages/assets/nature-retreat-interiors/spaces-single-room.jpg" width="1800" height="954" loading="lazy" decoding="async" alt="Guest room">
+            </div>
+            <figcaption class="es-caption"><span>NATURE RETREAT</span><span>Guest room</span></figcaption>
+          </figure>
+
+          <div class="es-studio__text">
+            <p class="es-lede es-reveal">An interior architect based in Ankara, and a graduate of İstanbul Medipol University’s English-taught Interior Architecture and Environmental Design programme.</p>
+            <p class="es-text es-reveal">My work connects concept development, spatial design, technical drawing and presentation. Through university projects and internships in both an architecture office and on site, I have explored how an idea becomes a workable interior.</p>
+
+            <ul class="es-principles es-reveal">
+              <li><b>People &amp; purpose</b><span>Aesthetics, function and user needs are considered together from the first design decision.</span></li>
+              <li><b>Concept to detail</b><span>A continuous approach, from the initial idea to technical details and the final presentation.</span></li>
+              <li><b>Learning through making</b><span>Attention to materials, construction and collaboration, with an openness to learning at every stage.</span></li>
+            </ul>
+
+            <dl class="es-facts es-reveal">
+              <div><dt>Based in</dt><dd>Ankara</dd></div>
+              <div><dt>Graduated</dt><dd>2026</dd></div>
+              <div><dt>Languages</dt><dd>Turkish · English</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <figure class="es-bleed es-reveal">
+      <div class="es-crop">
+        <img src="project-pages/assets/beyond-the-self/spaces-dynamic-floor.jpg" width="1536" height="1024" loading="lazy" decoding="async" alt="A floor rising like the plains of Konya">
+      </div>
+      <figcaption class="es-caption es-wrap"><span>Beyond the Self</span><span>A floor rising like the plains of Konya</span></figcaption>
+    </figure>
+
+<!-- ──────────────── Every project, in plain links ──────────────── -->
+    <section class="es-section es-work" id="work" aria-labelledby="work-title">
+      <div class="es-wrap es-grid">
+        <h2 class="es-label es-work__label es-reveal" id="work-title">All projects</h2>
+        <ol class="es-work__list">
+          <li class="es-reveal"><a class="es-work__row" href="projects/arche/">
+            <span class="es-crop es-work__thumb"><img src="project-pages/assets/arche/spaces-exhibition.jpg" width="1800" height="1013" loading="lazy" decoding="async" alt=""></span>
+            <span class="es-work__name">ARCHÉ</span>
+            <span class="es-work__type">Interactive museum · Laboratories · Offices</span>
+          </a></li>
+          <li class="es-reveal"><a class="es-work__row" href="projects/balyan/">
+            <span class="es-crop es-work__thumb"><img src="project-pages/assets/balyan/spaces-exhibition-cases.jpg" width="960" height="540" loading="lazy" decoding="async" alt=""></span>
+            <span class="es-work__name">BALYAN</span>
+            <span class="es-work__type">Building survey and refunctioning</span>
+          </a></li>
+          <li class="es-reveal"><a class="es-work__row" href="projects/beyond-the-self/">
+            <span class="es-crop es-work__thumb"><img src="project-pages/assets/beyond-the-self/spaces-reception.jpg" width="1536" height="1024" loading="lazy" decoding="async" alt=""></span>
+            <span class="es-work__name">Beyond the Self</span>
+            <span class="es-work__type">Digital museum · Graduation project</span>
+          </a></li>
+          <li class="es-reveal"><a class="es-work__row" href="projects/edena/">
+            <span class="es-crop es-work__thumb"><img src="project-pages/assets/edena/spaces-reception.jpg" width="1536" height="1024" loading="lazy" decoding="async" alt=""></span>
+            <span class="es-work__name">EDENA</span>
+            <span class="es-work__type">Hotel · Urban Oasis</span>
+          </a></li>
+          <li class="es-reveal"><a class="es-work__row" href="projects/los-platos-de-frida/">
+            <span class="es-crop es-work__thumb"><img src="project-pages/assets/los-platos-de-frida/spaces-dining-paintings.jpg" width="1800" height="1013" loading="lazy" decoding="async" alt=""></span>
+            <span class="es-work__name">LOS PLATOS DE FRIDA</span>
+            <span class="es-work__type">Concept restaurant · Mexican cuisine</span>
+          </a></li>
+          <li class="es-reveal"><a class="es-work__row" href="projects/nature-retreat/">
+            <span class="es-crop es-work__thumb"><img src="project-pages/assets/nature-retreat/spaces-courtyard.jpg" width="1152" height="648" loading="lazy" decoding="async" alt=""></span>
+            <span class="es-work__name">NATURE RETREAT</span>
+            <span class="es-work__type">Rehabilitation centre</span>
+          </a></li>
+          <li class="es-reveal"><a class="es-work__row" href="projects/nature-retreat-2/">
+            <span class="es-crop es-work__thumb"><img src="project-pages/assets/nature-retreat-interiors/spaces-guest-room.jpg" width="1800" height="1045" loading="lazy" decoding="async" alt=""></span>
+            <span class="es-work__name">NATURE RETREAT</span>
+            <span class="es-work__type">Rehabilitation centre · Living unit interior</span>
+          </a></li>
+        </ol>
+        <div class="es-work__preview" aria-hidden="true">
+          <img class="is-active" src="project-pages/assets/arche/spaces-exhibition.jpg" width="1800" height="1013" loading="lazy" decoding="async" alt="">
+          <img src="project-pages/assets/balyan/spaces-exhibition-cases.jpg" width="960" height="540" loading="lazy" decoding="async" alt="">
+          <img src="project-pages/assets/beyond-the-self/spaces-reception.jpg" width="1536" height="1024" loading="lazy" decoding="async" alt="">
+          <img src="project-pages/assets/edena/spaces-reception.jpg" width="1536" height="1024" loading="lazy" decoding="async" alt="">
+          <img src="project-pages/assets/los-platos-de-frida/spaces-dining-paintings.jpg" width="1800" height="1013" loading="lazy" decoding="async" alt="">
+          <img src="project-pages/assets/nature-retreat/spaces-courtyard.jpg" width="1152" height="648" loading="lazy" decoding="async" alt="">
+          <img src="project-pages/assets/nature-retreat-interiors/spaces-guest-room.jpg" width="1800" height="1045" loading="lazy" decoding="async" alt="">
+        </div>
+      </div>
+    </section>
+
+<!-- ──────────────── Experience, from the supplied CV ──────────────── -->
+    <section class="es-section es-experience" id="experience" aria-labelledby="experience-title">
+      <div class="es-wrap es-grid">
+        <p class="es-label es-reveal">Experience</p>
+        <h2 class="es-title es-reveal" id="experience-title">From the drawing<br>to the <em>site.</em></h2>
+        <p class="es-intro es-reveal">Two internships in Ankara brought different perspectives to my education: the design decisions made in the office, and their translation into materials and construction on site.</p>
+        <ol class="es-career">
+          <li class="es-entry es-reveal">
+            <p class="es-entry__date">July – August 2025 <span>Office internship · 30 working days</span></p>
+            <div class="es-entry__body">
+              <h3>Beyza Aksöz İç Mimarlık<br>ve Tasarım Atölyesi</h3>
+              <p class="es-entry__role">Interior Architecture Intern · Ankara</p>
+              <p>Contributed to concept development and design decisions, supported technical and detail drawings, and researched materials, furniture and design alternatives for project presentations.</p>
+              <ul class="es-tags" aria-label="Office internship focus"><li>Concept development</li><li>Technical drawings</li><li>Material research</li></ul>
+            </div>
+          </li>
+          <li class="es-entry es-reveal">
+            <p class="es-entry__date">July – August 2024 <span>Site internship · 30 working days</span></p>
+            <div class="es-entry__body">
+              <h3>Muslu İnşaat</h3>
+              <p class="es-entry__role">Interior Architecture Intern · Senve Five Project · Ankara</p>
+              <p>Followed construction progress and site organisation, studied materials and fabrication details, and observed how architectural drawings guide implementation and coordination on site.</p>
+              <ul class="es-tags" aria-label="Site internship focus"><li>Site coordination</li><li>Construction details</li><li>Materials &amp; fabrication</li></ul>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <div class="es-wrap es-grid es-pair">
+      <figure class="es-pair__large es-reveal">
+        <div class="es-crop" style="--ratio:3/2">
+          <img src="project-pages/assets/arche/spaces-ceo-office.jpg" width="1800" height="1013" loading="lazy" decoding="async" alt="CEO office">
+        </div>
+        <figcaption class="es-caption"><span>ARCHÉ</span><span>CEO office</span></figcaption>
+      </figure>
+      <figure class="es-pair__small es-reveal" style="--delay:.08s">
+        <div class="es-crop" style="--ratio:4/5; --fx:62%">
+          <img src="project-pages/assets/nature-retreat-interiors/spaces-balcony.jpg" width="1800" height="1202" loading="lazy" decoding="async" alt="Balcony">
+        </div>
+        <figcaption class="es-caption"><span>NATURE RETREAT</span><span>Balcony</span></figcaption>
+      </figure>
+    </div>
+
+<!-- ──────────────── Skills ──────────────── -->
+    <section class="es-section es-services-section" id="services" aria-labelledby="services-title">
+      <div class="es-wrap es-grid">
+        <p class="es-label es-reveal">Skills &amp; tools</p>
+        <h2 class="es-title es-reveal" id="services-title">Design thinking.<br>Technical <em>fluency.</em></h2>
+        <p class="es-intro es-reveal">A toolkit for developing a concept, communicating its spatial qualities and working through the details that make it possible.</p>
+        <ul class="es-services">
+          <li class="es-entry es-reveal"><h3>Technical drawing</h3><div class="es-entry__body"><p>Plans, application drawings and construction details, supported by experience in office and site workflows.</p><small>AutoCAD · Advanced / Revit · Intermediate</small></div></li>
+          <li class="es-entry es-reveal"><h3>3D modelling &amp; visualisation</h3><div class="es-entry__body"><p>Spatial modelling and rendered views to develop design ideas and communicate the character of an interior.</p><small>SketchUp · Intermediate / V-Ray</small></div></li>
+          <li class="es-entry es-reveal"><h3>Visual communication</h3><div class="es-entry__body"><p>Project presentations and visual studies that bring concept, material and design decisions together.</p><small>Adobe Creative Suite · Intermediate / Procreate training certificate</small></div></li>
+          <li class="es-entry es-reveal"><h3>Project organisation</h3><div class="es-entry__body"><p>Project planning, implementation and budget management, with attention to the relationship between drawings and delivery.</p><small>Planning · Implementation · Budget management</small></div></li>
+          <li class="es-entry es-reveal"><h3>Communication &amp; collaboration</h3><div class="es-entry__body"><p>Client relations and communication within project teams, supported by Turkish as a native language and advanced English.</p><small>Turkish · Native / English · Advanced</small></div></li>
+        </ul>
+      </div>
+    </section>
+
+<!-- ──────────────── Education & development ──────────────── -->
+    <section class="es-section es-process" id="process" aria-labelledby="process-title">
+      <div class="es-wrap es-grid">
+        <p class="es-label es-reveal">Education &amp; development</p>
+        <h2 class="es-title es-reveal" id="process-title">A foundation.<br>An ongoing <em>curiosity.</em></h2>
+        <p class="es-intro es-reveal">Academic study, workshops and shared creative work continue to inform my approach to interior architecture.</p>
+        <div class="es-career">
+          <div class="es-entry es-reveal">
+            <p class="es-entry__date">September 2021 – July 2026 <span>Bachelor’s degree</span></p>
+            <div class="es-entry__body">
+              <h3>İstanbul Medipol University</h3>
+              <p class="es-entry__role">Interior Architecture and Environmental Design</p>
+              <p>English-taught programme. Project work spanning concept development, design, technical detailing and presentation.</p>
+            </div>
+          </div>
+          <div class="es-entry es-reveal">
+            <p class="es-entry__date">Community</p>
+            <div class="es-entry__body"><h3>Genç İç Mimarlar Derneği</h3><p>Active participation in the association’s media team.</p></div>
+          </div>
+          <div class="es-entry es-reveal">
+            <p class="es-entry__date">Since 2024</p>
+            <div class="es-entry__body"><h3>TMMOB İçmimarlar Odası</h3><p>Participation in events and workshops organised by the Chamber of Interior Architects (İÇMO).</p></div>
+          </div>
+          <div class="es-entry es-reveal">
+            <p class="es-entry__date">Training</p>
+            <div class="es-entry__body"><h3>Procreate</h3><p>Training certificate, extending a visual communication toolkit for design work.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<!-- ──────────────── Inquiry ──────────────── -->
+    <section class="es-section es-inquiry" id="inquiry" data-tone="dark" aria-labelledby="inquiry-title">
+      <div class="es-wrap">
+        <p class="es-label es-reveal">Get in touch</p>
+        <h2 class="visually-hidden" id="inquiry-title">Let’s start a <em>conversation.</em></h2>
+        <a class="es-mail es-reveal" href="mailto:merhaba@eylulyildiz.archi">merhaba@eylulyildiz.archi</a>
+
+        <div class="es-grid es-inquiry__grid">
+          <dl class="es-details es-reveal">
+            <div><dt>Based in</dt><dd>Eryaman, Ankara, Türkiye</dd></div>
+            <div><dt>Languages</dt><dd>Turkish (native) · English (advanced)</dd></div>
+          </dl>
+
+          <div class="es-inquiry__form">
+            <p class="es-lede es-reveal">For interior architecture opportunities, project collaborations or a first conversation about a space, you can reach me by email.</p>
+            <form class="es-form es-reveal" id="inquiry-form" data-mailto="merhaba@eylulyildiz.archi" action="mailto:merhaba@eylulyildiz.archi" method="post" enctype="text/plain">
+              <div class="es-field">
+                <label for="f-name">Your name</label>
+                <input id="f-name" name="name" type="text" autocomplete="name" required>
+              </div>
+              <div class="es-field">
+                <label for="f-email">Email</label>
+                <input id="f-email" name="email" type="email" autocomplete="email" required>
+              </div>
+              <div class="es-field es-field--wide">
+                <label for="f-type">Subject</label>
+                <select id="f-type" name="type">
+                  <option value="">Choose one</option>
+                  <option>Career opportunity</option>
+                  <option>Project collaboration</option>
+                  <option>Interior design</option>
+                  <option>Something else</option>
+                </select>
+              </div>
+              <div class="es-field es-field--wide">
+                <label for="f-message">Your message</label>
+                <textarea id="f-message" name="message" rows="4" required placeholder="Tell me about your opportunity, project or idea."></textarea>
+              </div>
+              <div class="es-form__foot">
+                <button class="es-submit" type="submit">Write the email <span aria-hidden="true">→</span></button>
+                <p class="es-form__note">This opens your own email app with the message written out. Nothing is sent or stored by this website.</p>
+              </div>
+              <p class="es-form__status" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ──────────────── Footer ──────────────── -->
+  <footer class="es-footer" data-tone="dark">
+    <div class="es-wrap">
+      <div class="es-grid es-footer__top">
+        <p class="es-footer__place">Interior architecture · Ankara</p>
+        <div class="es-footer__col">
+          <h2>Index</h2>
+          <ul>
+            <li><a href="#studio">Studio</a></li>
+            <li><a href="#work">All projects</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#services">Skills</a></li>
+            <li><a href="#process">Education</a></li>
+          </ul>
+        </div>
+        <div class="es-footer__col">
+          <h2>Contact</h2>
+          <ul>
+            <li><a href="mailto:merhaba@eylulyildiz.archi">merhaba@eylulyildiz.archi</a></li>
+            <li><a href="#inquiry">Get in touch</a></li>
+            <li>Ankara, Türkiye</li>
+          </ul>
+        </div>
+        <div class="es-footer__col">
+          <h2>The drawing</h2>
+          <ul>
+            <li><button type="button" data-to-top>Back to the first line ↑</button></li>
+          </ul>
+        </div>
+      </div>
+      <p class="es-footer__mark" aria-hidden="true"><span>eylül yıldız</span></p>
+      <div class="es-footer__base">
+        <p>© <span data-year>2026</span> Eylül Yıldız Interior Architecture</p>
+        <p>Every space begins with a line.</p>
+      </div>
+    </div>
+  </footer>
+
+</div>
+<!-- ═══════════════ /PART 3 — EditorialSite ═══════════════ -->
+
+<script type="module" src="paper-journey/paper-journey.js"></script>
+<script type="module" src="project-sheets/project-sheets.js"></script>
+<script type="module" src="editorial-site/editorial-site.js"></script>
+<script type="module" src="signature-rail/signature-rail.js"></script>
+</body>
+</html>
+

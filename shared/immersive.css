@@ -1,0 +1,51 @@
+/* One pin: the unchanged ARCHÉ journey, followed by the sequential paper archive.
+   Each part reads its own scroll zone. The archive releases into Studio. */
+
+.immersive {
+  --journey-span: 1000vh;
+  --ending-span: 240vh;
+  --sheets-span: 730vh;
+  --pin-h: 100vh;
+  position: relative;
+  height: calc(var(--pin-h) + var(--journey-span) + var(--ending-span) + var(--sheets-span));
+  background: var(--ink);
+}
+@supports (height: 100dvh) {
+  .immersive { --pin-h: 100dvh; }
+}
+
+.immersive__zone {
+  position: absolute;
+  left: 0;
+  width: 1px;
+  visibility: hidden;
+  pointer-events: none;
+}
+.immersive__zone[data-zone="paper-journey"] { top: 0; height: var(--journey-span); }
+.immersive__zone[data-zone="arche-ending"] { top: var(--journey-span); height: var(--ending-span); }
+.immersive__zone[data-zone="project-sheets"] { top: calc(var(--journey-span) + var(--ending-span)); height: var(--sheets-span); }
+
+.immersive__pin {
+  position: sticky;
+  top: 0;
+  height: var(--pin-h);
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .immersive { --journey-span: 850vh; --sheets-span: 675vh; }
+}
+
+/* Storyboard frames (?state=N) show the journey alone, one screen tall. */
+.is-embedded .immersive { height: var(--pin-h); }
+.is-embedded .immersive__zone,
+.is-embedded .project-sheets,
+.is-embedded .editorial-site { display: none; }
+
+/* Without JavaScript nothing is scroll-driven: every part is plain flow. */
+html:not(.js) .immersive { height: auto; }
+html:not(.js) .immersive__zone { display: none; }
+html:not(.js) .immersive__pin { position: relative; height: auto; overflow: visible; }
+
+/* Existing navigation continues to use #projects without changing the rail. */
+.project-stack-anchor { position: absolute; top: 8%; left: 0; }

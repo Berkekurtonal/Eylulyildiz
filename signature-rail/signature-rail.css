@@ -1,0 +1,305 @@
+/* Global wayfinding replaces the old local mastheads without changing the scenes. */
+html:not(.is-embedded) .paper-journey .rail-top,
+html:not(.is-embedded) .editorial-site .es-header { display: none; }
+.is-embedded .signature-rail { display: none; }
+
+.signature-rail {
+  --name-width: 142px;
+  --wing-width: 236px;
+  --spread: 0px;
+  --rail-surface: #f2f0e8;
+  --rail-foreground: #292a24;
+  --unfold: cubic-bezier(.22, 1, .36, 1);
+  position: fixed;
+  z-index: 35;
+  top: max(16px, env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(var(--name-width) + var(--spread) + var(--spread));
+  height: 46px;
+  color: var(--rail-foreground);
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  transition: width 800ms var(--unfold) 100ms;
+}
+.signature-rail[data-open="true"] {
+  --spread: var(--wing-width);
+  transition: width 1100ms var(--unfold);
+}
+/* A separate surface grows under the signature. At rest it has no pixels. */
+.signature-rail::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: var(--rail-surface);
+  border: 1px solid #8b877a24;
+  border-radius: 2px;
+  box-shadow: 0 3px 18px #11120e0b;
+  transform: scaleX(0);
+  transform-origin: center;
+  opacity: 0;
+  transition: transform 800ms var(--unfold) 100ms, opacity 200ms ease 700ms;
+}
+.signature-rail[data-open="true"]::before {
+  transform: scaleX(1);
+  opacity: 1;
+  transition: transform 1100ms var(--unfold), opacity 300ms ease;
+}
+.signature-rail__nav {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 2px;
+}
+.signature-rail__name {
+  position: absolute;
+  z-index: 2;
+  inset: 0 auto 0 50%;
+  transform: translateX(-50%);
+  width: var(--name-width);
+  white-space: nowrap;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -.02em;
+  color: var(--rail-foreground);
+}
+.signature-rail__wing {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: var(--wing-width);
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  /* Each wing clips at the signature's edge: text can never cross its face. */
+  overflow: hidden;
+}
+.signature-rail__wing--left {
+  right: calc(50% + var(--name-width) / 2);
+  --travel: var(--wing-width);
+}
+.signature-rail__wing--right {
+  left: calc(50% + var(--name-width) / 2);
+  --travel: calc(-1 * var(--wing-width));
+}
+.signature-rail__wing a {
+  --enter-delay: 100ms;
+  --exit-delay: 100ms;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 100%;
+  font-family: var(--font-text);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .12em;
+  color: #626258;
+  transform: translateX(var(--travel));
+  opacity: 0;
+  transition: transform 800ms var(--unfold) var(--exit-delay), opacity 800ms ease var(--exit-delay), color 240ms ease;
+}
+.signature-rail__wing--left a:first-child,
+.signature-rail__wing--right a:last-of-type { --enter-delay: 200ms; --exit-delay: 0ms; }
+.signature-rail[data-open="true"] .signature-rail__wing a {
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform 900ms var(--unfold) var(--enter-delay), opacity 900ms ease-in-out var(--enter-delay), color 240ms ease;
+}
+.signature-rail__wing a:hover,
+.signature-rail__wing a[aria-current] { color: var(--rail-foreground); }
+.signature-rail__wing a::after {
+  content: '';
+  position: absolute;
+  bottom: 9px;
+  left: calc(50% - 12px);
+  width: 24px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 360ms var(--unfold), opacity 300ms ease;
+}
+.signature-rail__wing a[aria-current]::after { transform: scaleX(.42); opacity: .45; }
+.signature-rail__wing a:hover::after,
+.signature-rail__wing a:focus-visible::after { transform: scaleX(1); opacity: .6; }
+.signature-rail a:focus-visible,
+.signature-rail button:focus-visible { outline: 1px solid currentColor; outline-offset: -5px; }
+
+/* Blend at the fixed stacking-context boundary so the page is the backdrop.
+   At rest only the signature paints pixels. Opening AND closing navigation
+   blend normally so the cream surface never inverts into a black rectangle. */
+.signature-rail[data-open="false"]:not([data-closing="true"]) { mix-blend-mode: difference; }
+.signature-rail[data-open="false"]:not([data-closing="true"]) .signature-rail__name { color: #fff; }
+/* Keep these restrained disclosure transitions visible in every motion setting.
+   A 1ms reduced-motion override previously made the entire rail snap open. */
+
+/* The language control is the rail's last item, set off from the destinations. */
+.signature-rail__languages {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 100%;
+  padding-left: 8px;
+  border-left: 1px solid #8b877a2e;
+  color: #626258;
+  font-family: var(--font-text);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  transform: translateX(var(--travel));
+  opacity: 0;
+  transition: transform 800ms var(--unfold), opacity 800ms ease;
+}
+.signature-rail[data-open="true"] .signature-rail__languages {
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform 900ms var(--unfold) 240ms, opacity 900ms ease-in-out 240ms;
+}
+.signature-rail__languages button { min-width: 26px; height: 100%; }
+.signature-rail__languages button:hover { color: var(--rail-foreground); }
+.signature-rail__languages button[aria-pressed="true"] { color: var(--rail-foreground); text-decoration: underline; text-underline-offset: 4px; }
+.signature-rail__toggle { display: none; }
+
+/* Narrow screens: the signature stays put, and the destinations open as a full sheet
+   of paper set in the signature's own lowercase, within reach of the thumb. */
+@media (max-width: 760px) {
+  .signature-rail {
+    --name-width: 108px;
+    --rail-top: max(12px, env(safe-area-inset-top));
+    --sheet-x: 20px;
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+    height: calc(var(--rail-top) + 46px);
+    pointer-events: none;
+    transition: none;
+  }
+  .signature-rail[data-open="true"],
+  .signature-rail[data-closing="true"] { width: 100%; height: 100vh; height: 100dvh; transition: none; }
+  .signature-rail[data-open="true"] { pointer-events: auto; touch-action: none; }
+
+  .signature-rail::before,
+  .signature-rail[data-open="true"]::before {
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    transform: none;
+    opacity: 1;
+  }
+  .signature-rail::before { clip-path: inset(0 0 100% 0); transition: clip-path 480ms var(--unfold) 80ms; }
+  .signature-rail[data-open="true"]::before { clip-path: inset(0); transition: clip-path 640ms var(--unfold); }
+
+  .signature-rail__nav {
+    position: absolute;
+    inset: 0;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 var(--sheet-x) calc(max(20px, env(safe-area-inset-bottom)) + 64px);
+    overflow: visible;
+    border-radius: 0;
+  }
+  .signature-rail__name {
+    inset: var(--rail-top) auto auto 50%;
+    height: 46px;
+    font-size: 21px;
+    pointer-events: auto;
+  }
+
+  .signature-rail__toggle {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    top: var(--rail-top);
+    right: calc(var(--sheet-x) - 12px);
+    width: 44px;
+    height: 46px;
+    color: var(--rail-foreground);
+    pointer-events: auto;
+  }
+  .signature-rail__toggle::before,
+  .signature-rail__toggle::after {
+    content: '';
+    position: absolute;
+    left: 12px;
+    width: 20px;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform 420ms var(--unfold);
+  }
+  .signature-rail__toggle::before { top: 19px; }
+  .signature-rail__toggle::after { top: 26px; }
+  .signature-rail[data-open="true"] .signature-rail__toggle::before { transform: translateY(3.5px) rotate(45deg); }
+  .signature-rail[data-open="true"] .signature-rail__toggle::after { transform: translateY(-3.5px) rotate(-45deg); }
+  .signature-rail[data-open="false"]:not([data-closing="true"]) .signature-rail__toggle { color: #fff; }
+
+  .signature-rail__wing,
+  .signature-rail__wing--left,
+  .signature-rail__wing--right {
+    position: static;
+    width: auto;
+    height: auto;
+    display: block;
+    overflow: visible;
+    visibility: hidden;
+    transition: visibility 0s linear 400ms;
+  }
+  .signature-rail[data-open="true"] .signature-rail__wing { visibility: visible; transition: none; }
+
+  .signature-rail__wing a {
+    display: block;
+    width: fit-content;
+    min-width: 0;
+    height: auto;
+    padding: 2px 0 6px;
+    font-family: var(--font-display);
+    font-size: min(14.5vw, 10vh);
+    font-weight: 400;
+    line-height: 1.04;
+    letter-spacing: -.035em;
+    text-transform: lowercase;
+    color: var(--rail-foreground);
+    transform: translateY(14px);
+    transition: transform 240ms ease, opacity 240ms ease;
+  }
+  .signature-rail__wing--left a:first-child { --enter-delay: 120ms; }
+  .signature-rail__wing--left a:last-of-type { --enter-delay: 170ms; }
+  .signature-rail__wing--right a:first-child { --enter-delay: 220ms; }
+  .signature-rail__wing--right a:last-of-type { --enter-delay: 270ms; }
+  .signature-rail[data-open="true"] .signature-rail__wing a {
+    transform: none;
+    transition: transform 720ms var(--unfold) var(--enter-delay), opacity 480ms ease var(--enter-delay);
+  }
+  .signature-rail__wing a::after { display: none; }
+  .signature-rail__wing a[aria-current] { text-decoration: underline 1px; text-underline-offset: .12em; }
+
+  .signature-rail__languages {
+    position: absolute;
+    left: calc(var(--sheet-x) - 10px);
+    bottom: max(12px, env(safe-area-inset-bottom));
+    height: 44px;
+    padding-left: 0;
+    border-left: 0;
+    font-size: 15px;
+    letter-spacing: 0;
+    transform: translateY(14px);
+    transition: transform 240ms ease, opacity 240ms ease;
+  }
+  .signature-rail[data-open="true"] .signature-rail__languages {
+    transform: none;
+    transition: transform 720ms var(--unfold) 330ms, opacity 480ms ease 330ms;
+  }
+  .signature-rail__languages button { min-width: 44px; }
+}

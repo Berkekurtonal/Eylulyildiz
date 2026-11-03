@@ -1,0 +1,87 @@
+/* One pinned paper stack, above the untouched ARCHÉ scene. */
+.project-sheets {
+  --veil: 0;
+  position: absolute; inset: 0; z-index: 20;
+  color: var(--ink-text); font-family: var(--font-text);
+  pointer-events: none;
+}
+.project-sheets[data-phase="idle"], .project-sheets:not([data-phase]) { visibility: hidden; }
+.ps-veil { position: absolute; inset: 0; background: var(--grain), var(--ground); opacity: var(--veil); }
+.ps-stack { position: absolute; inset: 0; z-index: 1; margin: 0; padding: 0; list-style: none; }
+.ps-sheet {
+  position: absolute; left: 0; top: 0; opacity: 0;
+  transform-origin: 50% 50%;
+  container-type: inline-size;
+}
+.project-sheets[data-phase="playing"] .ps-sheet { will-change: transform; }
+.ps-sheet__link {
+  display: block; width: 100%; height: 100%;
+  color: inherit; text-decoration: none;
+  transform: translateY(0) scale(1);
+  transition: transform 240ms cubic-bezier(.2, .7, .2, 1);
+}
+.ps-sheet[data-interactive="true"] .ps-sheet__link { pointer-events: auto; cursor: pointer; }
+.ps-sheet__link:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 5px; }
+.ps-sheet__paper {
+  --padding: clamp(7px, 3cqw, 18px);
+  box-sizing: border-box; width: 100%; height: 100%; margin: 0;
+  padding: var(--padding); background: #f5f2e9;
+  display: flex; flex-direction: column;
+  box-shadow: 0 1px 2px #30281820, 0 18px 45px -20px #30281840;
+  transition: box-shadow 240ms ease;
+}
+.ps-sheet__heading {
+  flex: 0 0 auto; display: flex; align-items: baseline;
+  gap: clamp(6px, 2.4cqw, 16px); margin: 0 0 clamp(6px, 2cqw, 12px);
+  padding-bottom: clamp(6px, 2cqw, 12px); border-bottom: 1px solid #534b3926;
+}
+.ps-sheet__number { font-size: clamp(8px, 2.5cqw, 12px); color: var(--accent-ink); letter-spacing: .12em; }
+.ps-sheet__title { margin: 0; font: 400 clamp(12px, 4.6cqw, 26px)/1.1 var(--font-display); }
+.ps-sheet__visual { flex: 1; min-height: 0; position: relative; }
+.ps-sheet__visual img, .ps-sheet__visual canvas {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
+}
+.ps-sheet__visual img { mix-blend-mode: multiply; }
+/* The first canvas initially covers the live viewport pixel for pixel.
+   Its paper edge and identifying caption emerge only as it recedes. */
+.ps-sheet--origin .ps-sheet__paper {
+  padding: calc(var(--recede, 0) * var(--padding));
+  box-shadow: 0 2px 3px rgb(48 40 24 / calc(var(--recede, 0) * .12)),
+    0 18px 45px -20px rgb(48 40 24 / calc(var(--recede, 0) * .25));
+}
+.ps-sheet--origin .ps-sheet__heading {
+  height: calc(var(--recede, 0) * clamp(25px, 9cqw, 48px));
+  padding: 0; margin: 0; overflow: hidden; opacity: var(--recede, 0);
+  border: 0;
+}
+/* The captured viewport keeps its centre as the surrounding blank space
+   recedes into the sheet; the live journey and its camera remain untouched. */
+.ps-sheet--origin .ps-sheet__visual { overflow: hidden; }
+.ps-sheet--origin .ps-sheet__visual canvas { object-fit: cover; opacity: clamp(0, calc(1 - var(--recede, 0) * 3), 1); }
+/* Early in its recede, ARCHÉ settles on its colourless plan, like every other
+   sheet. The two framings differ, so the crossfade is kept short. */
+.ps-sheet--origin .ps-sheet__plan { opacity: clamp(0, calc(var(--recede, 0) * 3), 1); }
+html:not(.js) .project-sheets { display: none; }
+
+/* Lift the inner link, leaving the scroll-driven sheet transform intact.
+   Promoting its parent also reveals the parts covered by later papers. */
+.ps-sheet[data-interactive="true"]:focus-within { z-index: 8; }
+.ps-sheet[data-interactive="true"]:focus-within .ps-sheet__link { transform: translateY(-8px) scale(1.025); }
+.ps-sheet[data-interactive="true"]:focus-within .ps-sheet__paper {
+  box-shadow: 0 2px 5px #30281826, 0 24px 54px -16px #30281865;
+}
+@media (hover: hover) and (pointer: fine) {
+  .ps-sheet[data-interactive="true"]:hover { z-index: 8; }
+  .ps-sheet[data-interactive="true"]:hover .ps-sheet__link { transform: translateY(-8px) scale(1.025); }
+  .ps-sheet[data-interactive="true"]:hover .ps-sheet__paper {
+    box-shadow: 0 2px 5px #30281826, 0 24px 54px -16px #30281865;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ps-sheet__link, .ps-sheet__paper { transition: none; }
+  .ps-sheet[data-interactive="true"]:is(:hover, :focus-within) .ps-sheet__link { transform: none; }
+}
+
+/* A project page's "All projects" link lands here when it cannot step back in
+   history: the settled stack, after the last arrival. */
+.ps-index-anchor { position: absolute; top: 91%; left: 0; }

@@ -1,0 +1,85 @@
+/* ══════════════════════════════════════════════════════════════════
+   SHARED — brand tokens and base
+
+   One brand world from the first frame to the footer. PaperJourney
+   and EditorialSite both draw from these tokens; neither of them
+   redefines them.
+   ══════════════════════════════════════════════════════════════════ */
+
+/* Neuething Sans draws large on its em (cap height .8). size-adjust brings it to
+   the type sizes the layouts were set with. The variable file is not used: its
+   weight axis runs 50–100, so font-weight: 400 would resolve to its heaviest. */
+@font-face { font-family: 'Neuething Sans'; src: url('fonts/NeuethingSans-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; size-adjust: 90%; }
+@font-face { font-family: 'Neuething Sans'; src: url('fonts/NeuethingSans-Medium.woff2') format('woff2'); font-weight: 500; font-display: swap; size-adjust: 90%; }
+@font-face { font-family: 'Neuething Sans'; src: url('fonts/NeuethingSans-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; size-adjust: 90%; }
+@font-face { font-family: 'Neuething Sans Expanded'; src: url('fonts/NeuethingSans-RegularExpanded.woff2') format('woff2'); font-weight: 400; font-display: swap; size-adjust: 90%; }
+
+:root {
+  /* the night of the atelier — PaperJourney's reading column, contact, footer */
+  --ink: #171815;
+  --rail: #1c1d1a;
+  --paper: #f2f0e8;
+  --body: #b3afa2;
+  --muted: #8f8b80;
+  --accent: #b39a6d;
+  --line: #ffffff1f;
+
+  /* the day of the sheet — EditorialSite, and the PaperJourney's paper panels */
+  --ground: #ebe7dd;          /* page ground */
+  --ground-deep: #e2ddd1;
+  --sheet: #f6f4ee;
+  --ink-text: #1f201b;
+  --ink-body: #45443c;
+  --ink-muted: #5f5b52;
+  --accent-ink: #74603d;      /* accent for small text on light grounds (AA) */
+  --hairline: #1f201b24;
+
+  --font-display: 'Neuething Sans', system-ui, sans-serif;
+  --font-text: 'Neuething Sans', system-ui, sans-serif;
+  /* the family has no italic: emphasis is its expanded cut, never a slanted regular */
+  --font-italic: 'Neuething Sans Expanded', 'Neuething Sans', system-ui, sans-serif;
+
+  /* a quiet paper tooth, shared by the sheets and the page */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .2 0 0 0 0 .18 0 0 0 0 .14 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+* { box-sizing: border-box; }
+
+html {
+  background: var(--ink);
+  font-synthesis: none;
+  scrollbar-width: none;
+  -webkit-text-size-adjust: 100%;
+}
+html::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+body {
+  margin: 0;
+  color: var(--paper);
+  font-family: var(--font-text);
+  font-weight: 400;
+  overscroll-behavior-y: none;
+}
+
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; padding: 0; }
+a { color: inherit; text-decoration: none; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible { outline: 1px solid var(--accent); outline-offset: 6px; }
+
+.skip { position: fixed; top: -100px; left: 0; z-index: 40; padding: 16px 22px; background: #26271f; }
+.skip:focus { top: 0; }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* drawing symbols live once in the document and are placed with <use> */
+.drawing-symbols { position: absolute; width: 0; height: 0; overflow: hidden; }

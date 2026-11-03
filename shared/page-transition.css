@@ -1,0 +1,24 @@
+/* SHARED — the move between the project stack and the project pages.
+
+   Same-site navigations cross-fade, and the one paper named `project-sheet`
+   (shared/sheet-handoff.js) grows from its place in the stack into the project
+   page's hero, and back.
+
+   The opt-in itself, `@view-transition { navigation: auto }`, is an inline
+   <style> in each page's <head>: it must exist before any script measures the
+   page, or the browser treats the page as not opted in and skips the move. */
+
+::view-transition-group(project-sheet) {
+  animation-duration: 900ms;
+  animation-timing-function: cubic-bezier(.22, 1, .36, 1);
+}
+::view-transition-old(project-sheet),
+::view-transition-new(project-sheet) {
+  animation-duration: 900ms;
+  animation-timing-function: cubic-bezier(.22, 1, .36, 1);
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 520ms;
+  animation-timing-function: ease;
+}

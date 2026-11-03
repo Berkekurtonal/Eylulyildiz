@@ -1,0 +1,4 @@
+# Every page may be indexed.
+# Once the domain is set, add: Sitemap: https://<domain>/sitemap.xml
+User-agent: *
+Allow: /
